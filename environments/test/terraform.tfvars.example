@@ -1,0 +1,29 @@
+# ==============================================================================
+# Test Environment Variable Values Example Template
+# Copy this file to terraform.tfvars and adjust values as needed.
+# ==============================================================================
+
+# AWS Region Configuration
+aws_region  = "us-east-1"
+environment = "test"
+
+# VPC & Network Configuration
+vpc_cidr             = "10.1.0.0/16"
+public_subnet_cidrs  = ["10.1.1.0/24", "10.1.2.0/24"]
+private_subnet_cidrs = ["10.1.10.0/24", "10.1.11.0/24"]
+availability_zones   = ["us-east-1a", "us-east-1b"]
+
+# EC2 Compute Configuration
+instance_type    = "t3.micro"
+root_volume_size = 8
+root_volume_type = "gp3"
+
+# Additional EBS Volume Configuration
+create_additional_volume = true
+additional_volume_size   = 5
+additional_volume_type   = "gp3"
+
+# OS / AMI Configuration (Ubuntu 24.04 LTS Noble Numbat)
+ami_owner       = "099720109477"
+ami_name_filter = "ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"
+
