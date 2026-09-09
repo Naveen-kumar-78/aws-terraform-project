@@ -4,7 +4,7 @@
 [![AWS Provider](https://img.shields.io/badge/AWS-v5.0-orange.svg)](https://registry.terraform.io/providers/hashicorp/aws/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A modular, enterprise-grade Infrastructure as Code (IaC) setup built with **HashiCorp Terraform** for AWS cloud resources. Incorporating remote state management with **AWS S3 + DynamoDB**, zero static credentials via **AWS SSO**, dynamic secret injection via **HashiCorp Vault**, and environment isolation.
+A modular, enterprise-grade Infrastructure as Code (IaC) setup built with **HashiCorp Terraform** for AWS cloud resources. Incorporating remote state management with **AWS S3 native state locking**, zero static credentials via **AWS SSO**, dynamic secret injection via **HashiCorp Vault**, and environment isolation.
 
 ---
 
@@ -15,7 +15,7 @@ aws-terraform-project/
 ├── README.md                  # Project overview & deployment quickstart (this file)
 ├── ARCHITECTURE.md            # Detailed system architecture document
 ├── global/
-│   └── s3-backend/            # S3 Remote State Bucket & DynamoDB Lock creation
+│   └── s3-backend/            # S3 Remote State Bucket (with native S3 state locking)
 ├── environments/
 │   ├── prod/                  # Production Environment Root (10.2.0.0/16)
 │   └── test/                  # Test Environment Root (10.1.0.0/16)
@@ -29,7 +29,7 @@ aws-terraform-project/
 
 ## 🔐 Key Security & Architectural Principles
 
-1. **Remote State & Concurrency Locking:** State files are stored remotely in an **encrypted AWS S3 bucket (SSE-KMS)** with object versioning enabled. Concurrency locking is handled via **AWS DynamoDB**.
+1. **Remote State & Concurrency Locking:** State files are stored remotely in an **encrypted AWS S3 bucket (AES256)** with object versioning enabled. Concurrency locking is handled natively via **Amazon S3 (`use_lockfile = true`)** without needing DynamoDB.
 2. **Environment Isolation:** Complete separation between `prod` and `test` environments via distinct state file keys and isolated VPC IP spaces (`10.2.0.0/16` for Prod vs `10.1.0.0/16` for Test).
 3. **Zero Static Credentials:** Developers authenticate locally via **AWS SSO** (`aws sso login`). Production deployment pipelines execute via **GitHub Actions & HashiCorp Vault OIDC** short-lived tokens.
 4. **Decoupled Parameters:** Infrastructure logic (`main.tf`) is decoupled from environment runtime variables (`terraform.tfvars`).

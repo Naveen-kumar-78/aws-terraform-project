@@ -1,7 +1,7 @@
 # Test Infrastructure Architecture
 
 ## Overview
-The **Test Environment** is designed for cost efficiency, rapid testing, and developer access. It spans **2 AWS Availability Zones** (`us-east-1a`, `us-east-1b`) and enables SSH debugging access alongside standard HTTP ingress.
+The **Test Environment** is designed for cost efficiency, rapid testing, and developer access. It spans **2 AWS Availability Zones** (`ap-south-1a`, `ap-south-1b`) and enables SSH debugging access alongside standard HTTP ingress.
 
 ---
 
@@ -9,18 +9,18 @@ The **Test Environment** is designed for cost efficiency, rapid testing, and dev
 
 ```mermaid
 graph TD
-    subgraph AWS_Cloud ["AWS Cloud (us-east-1)"]
+    subgraph AWS_Cloud ["AWS Cloud (ap-south-1)"]
         subgraph VPC ["VPC: test-vpc (10.1.0.0/16)"]
             IGW["Internet Gateway (test-igw)"]
             
             subgraph Public_Subnets ["Public Subnets (Dual AZ)"]
-                PUB1["test-public-subnet-1 (10.1.1.0/24) [us-east-1a]"]
-                PUB2["test-public-subnet-2 (10.1.2.0/24) [us-east-1b]"]
+                PUB1["test-public-subnet-1 (10.1.1.0/24) [ap-south-1a]"]
+                PUB2["test-public-subnet-2 (10.1.2.0/24) [ap-south-1b]"]
             end
             
             subgraph Private_Subnets ["Private Subnets"]
-                PRIV1["test-private-subnet-1 (10.1.10.0/24) [us-east-1a]"]
-                PRIV2["test-private-subnet-2 (10.1.11.0/24) [us-east-1b]"]
+                PRIV1["test-private-subnet-1 (10.1.10.0/24) [ap-south-1a]"]
+                PRIV2["test-private-subnet-2 (10.1.11.0/24) [ap-south-1b]"]
             end
             
             subgraph Security_Boundary ["App Security Group: test-app-sg"]
@@ -49,7 +49,7 @@ graph TD
 
 ### 1. Network Layer (`modules/vpc`)
 * **VPC CIDR**: `10.1.0.0/16`
-* **Availability Zones**: `us-east-1a`, `us-east-1b`
+* **Availability Zones**: `ap-south-1a`, `ap-south-1b`
 * **Public Subnets**:
   * `10.1.1.0/24` (AZ-a)
   * `10.1.2.0/24` (AZ-b)

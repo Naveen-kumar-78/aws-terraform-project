@@ -1,7 +1,7 @@
 # Production Infrastructure Architecture
 
 ## Overview
-The **Production Environment** is engineered for high availability, fault tolerance, and secure application delivery. It spans **3 AWS Availability Zones** (`us-east-1a`, `us-east-1b`, `us-east-1c`) with strict network boundaries and dedicated security guardrails.
+The **Production Environment** is engineered for high availability, fault tolerance, and secure application delivery. It spans **3 AWS Availability Zones** (`ap-south-1a`, `ap-south-1b`, `ap-south-1c`) with strict network boundaries and dedicated security guardrails.
 
 ---
 
@@ -9,20 +9,20 @@ The **Production Environment** is engineered for high availability, fault tolera
 
 ```mermaid
 graph TD
-    subgraph AWS_Cloud ["AWS Cloud (us-east-1)"]
+    subgraph AWS_Cloud ["AWS Cloud (ap-south-1)"]
         subgraph VPC ["VPC: prod-vpc (10.2.0.0/16)"]
             IGW["Internet Gateway (prod-igw)"]
             
             subgraph Public_Subnets ["Public Subnets (High Availability)"]
-                PUB1["prod-public-subnet-1 (10.2.1.0/24) [us-east-1a]"]
-                PUB2["prod-public-subnet-2 (10.2.2.0/24) [us-east-1b]"]
-                PUB3["prod-public-subnet-3 (10.2.3.0/24) [us-east-1c]"]
+                PUB1["prod-public-subnet-1 (10.2.1.0/24) [ap-south-1a]"]
+                PUB2["prod-public-subnet-2 (10.2.2.0/24) [ap-south-1b]"]
+                PUB3["prod-public-subnet-3 (10.2.3.0/24) [ap-south-1c]"]
             end
             
             subgraph Private_Subnets ["Private Subnets"]
-                PRIV1["prod-private-subnet-1 (10.2.10.0/24) [us-east-1a]"]
-                PRIV2["prod-private-subnet-2 (10.2.11.0/24) [us-east-1b]"]
-                PRIV3["prod-private-subnet-3 (10.2.12.0/24) [us-east-1c]"]
+                PRIV1["prod-private-subnet-1 (10.2.10.0/24) [ap-south-1a]"]
+                PRIV2["prod-private-subnet-2 (10.2.11.0/24) [ap-south-1b]"]
+                PRIV3["prod-private-subnet-3 (10.2.12.0/24) [ap-south-1c]"]
             end
             
             subgraph Security_Boundary ["App Security Group: prod-app-sg"]
@@ -52,7 +52,7 @@ graph TD
 
 ### 1. Network Layer (`modules/vpc`)
 * **VPC CIDR**: `10.2.0.0/16`
-* **Availability Zones**: `us-east-1a`, `us-east-1b`, `us-east-1c`
+* **Availability Zones**: `ap-south-1a`, `ap-south-1b`, `ap-south-1c`
 * **Public Subnets**:
   * `10.2.1.0/24` (AZ-a)
   * `10.2.2.0/24` (AZ-b)
